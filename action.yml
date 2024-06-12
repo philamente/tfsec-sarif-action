@@ -3,6 +3,12 @@ description: "Run tfsec against terraform code base and upload the sarif output 
 author: "Owen Rumney"
 
 inputs:
+  docker_registry:
+    description: "Overrides the default docker registry in Dockerfile"
+    required: false
+  tfsec_registry:
+    description: "Overrides the default tfsec github registry in Dockerfile"
+    required: false
   working_directory:
     description: |
       Directory to run the action on, from the repo root.
@@ -38,6 +44,9 @@ outputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.docker_registry }}
+    - ${{ inputs.tfsec_registry }}
 branding:
   icon: "search"
   color: "gray-dark"
